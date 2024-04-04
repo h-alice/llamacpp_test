@@ -131,6 +131,7 @@ if __name__ == "__main__":
         llm_instance = LlamaCpp(
             model_path=config.llm_models.model_path,
             verbose=False,
+            max_tokens=16384,
         )
     else: raise NotImplementedError("Might implement sometime lol.")
 
