@@ -70,7 +70,7 @@ class LlmGenerationParameters(NamedTuple):
     temperature: float
     repetition_penalty: float
     @classmethod
-    def new_generation_parameter(cls, max_new_tokens=1024, top_k=10, top_p=0.9, temperature=0.1, repetition_penalty=1.3):
+    def new_generation_parameter(cls, max_new_tokens=1024, top_k=10, top_p=0.9, temperature=0.1, repetition_penalty=1.3) -> 'LlmGenerationParameters':
         return cls(max_new_tokens=max_new_tokens,
                    top_k=top_k, 
                    top_p=top_p, 
