@@ -14,23 +14,16 @@ from langchain_community.llms import HuggingFaceTextGenInference
 from webui_config import LlmModelConfig
 
 # Some prompt templates.
-
-LLAMA_PROMPT_TEMPLATE = """
-<s>[INST] <<SYS>>
-{sys}
-<</SYS>>
-{rag}
-{user} [/INST]
-{model}
-"""
-
-GEMMA_PROMPT_TEMPLATE = """<start_of_turn>user
-{rag}
-{user}<end_of_turn>
-<start_of_turn>model
-{model}
-<end_of_turn>
-"""
+PROMPT_TEMPLATE = {
+    "llama": {
+        "prompt": "<s>[INST] <<SYS>>\n{sys}\n<</SYS>>\n{user} [/INST]\n{model}\n",
+        "after_generation": ""
+    },
+    "gemma": {
+        "prompt": "<start_of_turn>user\n{user}<end_of_turn>\n<start_of_turn>model\n{model}",
+        "after_generation": "<end_of_turn>\n"
+    },
+}
 
 SAMPLE_SYS_PROMPT = """
 You are a helpful, respectful and honest assistant. Always answer as helpfully as possible, while being safe.  Your answers should not include any harmful, unethical, racist, sexist, toxic, dangerous, or illegal content. Please ensure that your responses are socially unbiased and positive in nature.
@@ -78,7 +71,20 @@ class LlmGenerationParameters(NamedTuple):
                    repetition_penalty=repetition_penalty)
 
 #
-def llm_stream_result(llm: LLM, prompt: str, llm_model: LlmModelConfig, llm_parameter: LlmGenerationParameters) -> Iterator[str]:  
+def llm_stream_result(llm: LLM, prompt: str, llm_parameter: LlmGenerationParameters) -> Iterator[str]:
+    """
+    # Streaming Result from Language Model
+    This function streams the result from the language model.
+
+    The return is an iterator of strings, which return the result, one token at a time, until the completion of the generation.
+
+    It's very useful if you want to display the result in a streaming fashion, like the chatbot is actually typing the response.
+
+    Parameters:
+    - llm: LLM, The language model instance.
+    - prompt: str, The prompt to generate the response. It should be in the proper prompt format which the language model can understand.
+    - llm_parameter: LlmGenerationParameters, The generation parameters for the language model.
+    """
     return llm.stream(
         prompt,
         top_k=llm_parameter.top_k,
@@ -88,6 +94,7 @@ def llm_stream_result(llm: LLM, prompt: str, llm_model: LlmModelConfig, llm_para
         max_tokens=llm_parameter.max_new_tokens,
         )
 
+"""
 def craft_prompt(user_input, rag_content: List[Document]=[], keep_placeholder=False):
     prompt = PromptTemplate(
         input_variables=["user"],
@@ -113,3 +120,4 @@ def craft_prompt(user_input, rag_content: List[Document]=[], keep_placeholder=Fa
 
 def craft_result_with_prompt(user_input, model_response):
     return craft_prompt(user_input, keep_placeholder=True).format(model=model_response)
+    """
