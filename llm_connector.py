@@ -40,23 +40,8 @@ Anything between the following `context` html blocks is retrieved from a knowled
 
 """
 
-# This is a named tuple for the LLM generation parameters.
-# It's a way to pass parameters to the LLM generation function. And included some most common parameters.
 #
-# 
 class LlmGenerationParameters(NamedTuple):
-    """
-    # LLM Generation Parameters
-    This is a named tuple for the LLM generation parameters. And provides a way to pass parameters to the LLM generating function.
-
-    Some mostly used parameters are included in this named tuple, with recommended default values.
-    Parameters:
-    - max_new_tokens: int, The upper limit of the number of tokens to generate.
-    - top_k: int, The number of top tokens to sample from.
-    - top_p: float, The cumulative probability of the top tokens to sample from. Lower value means more precise output.
-    - temperature: float, The randomness of the output. Lower value means more precise output.
-    - repetition_penalty: float, The penalty for repeating tokens in the output.
-    """
     max_new_tokens: int
     top_k: int
     top_p: float
