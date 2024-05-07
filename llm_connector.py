@@ -147,18 +147,16 @@ class PromptCrafter:
         self.flag_is_finished = True # Set the flag to finished.
         return self.current_prompt
 
-    
-"""
 def craft_prompt(user_input, model_type="gemma", rag_content: List[Document]=[], keep_placeholder=False):
 
     # Get the prompt format.
     try:
-        prompt_template = PROMPT_TEMPLATE[model_type]
+        prompt_template = PROMPT_FORMAT[model_type]
     except KeyError:
         raise ValueError(f"Model type {model_type} is not supported.")
 
     prompt = PromptTemplate(
-        input_variables=["full_user"],
+        input_variables=["full_user_prompt"],
         template=prompt_template["prompt"],
         partial_variables={"model": ""},
         )
@@ -173,12 +171,11 @@ def craft_prompt(user_input, model_type="gemma", rag_content: List[Document]=[],
         user_prompt = user_prompt.partial(rag=rag_prompt)
         
     if keep_placeholder:
-        prompt = user_prompt.partial(user=user_input) 
+        prompt = user_prompt.partial(full_user_prompt=user_input) 
     else:
-        prompt = user_prompt.format(user=user_input)
+        prompt = user_prompt.format(full_user_prompt=user_input)
 
     return prompt
 
 def craft_result_with_prompt(user_input, model_response):
     return craft_prompt(user_input, keep_placeholder=True).format(model=model_response)
-    """

@@ -1,6 +1,6 @@
 llm_models:
   - provider: llama-cpp
-    path: "/Users/h-alice/Desktop/gemma-2b-it-q4.gguf"
+    path: "/Users/h-alice/Desktop/memma-1-2b-cmb-hf/memma-1-2b-cmb-q4.gguf"
 embedding_model:
     provider: huggingface
     endpoint: http://127.0.0.1:15820

@@ -81,8 +81,6 @@ def main_ui_logic(config: UiConfig, llm_instance: LLM) -> None:
             max_new_tokens=8192,
         )
 
-
-
         # Display user message in chat message container
         st.chat_message("user").markdown(user_input)
 
@@ -98,11 +96,11 @@ def main_ui_logic(config: UiConfig, llm_instance: LLM) -> None:
         rag_docs = []
 
         # Prompt crafting.
-        prompt = craft_prompt(user_input, rag_docs, keep_placeholder=False)
+        prompt = craft_prompt(user_input, rag_content=[], keep_placeholder=False)
         # TODO: Append history to prompt.
         #prompt = "".join(st.session_state.history) + prompt
         # Simulating bot typing.
-        for response in llm_stream_result(llm_instance, prompt, llm_model_conf, llm_param): # type: ignore
+        for response in llm_stream_result(llm_instance, prompt, llm_param): # type: ignore
             cursor = "❖"
             full_response += (response or "")
             message_placeholder.markdown(full_response + cursor)
