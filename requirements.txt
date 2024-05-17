@@ -13,3 +13,4 @@ openpyxl
 python-pptx
 odfpy
 llama_cpp_python
+jinja2
