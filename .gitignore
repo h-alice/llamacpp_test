@@ -1,1 +1,6 @@
 __pycache__
+
+# Local IDE files.
+.vscode
+
+.DS_Store
